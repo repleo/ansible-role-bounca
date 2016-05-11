@@ -27,7 +27,8 @@ galaxy_info:
     - openssl
     - key
     - certificates
-#dependencies:
+dependencies: []
+
 #  - { role: repleo.nginx,
 #          nginx_sites: 
 #            "{{ git_site }}"    
