@@ -45,39 +45,38 @@
     virtualenv: /srv/www/bounca/env
     virtualenv_python: python3.4
 
-#- name: Username set of app directories
-#  file: path=/srv/www/bounca owner=www-data group=www-data mode=755 recurse=yes
+- name: Username set of app directories
+  file: path=/srv/www/bounca owner=www-data group=www-data mode=755 recurse=yes
 
 
-#- name: create directory /etc/bounca
-#  file: path=/etc/bounca state=directory owner=www-data group=www-data
+- name: create directory /etc/bounca
+  file: path=/etc/bounca state=directory owner=www-data group=www-data
 
-#- name: copy bounca config 
-#  template: src=app/{{ item }} dest=/etc/bounca/{{ item }} owner=www-data group=www-data mode=600
-#  with_items:
-#    - main.ini
+- name: copy bounca config 
+  template: src=bounca/{{ item }} dest=/etc/bounca/{{ item }} owner=www-data group=www-data mode=600
+  with_items:
+    - main.ini
 
-#- name: copy uwsgi config 
-#  template: src=uwsgi/bounca.ini dest=/etc/uwsgi/apps-available/bounca.ini
-
-
-#- name: create uwsgi symlink
-#  file: src=/etc/uwsgi/apps-available/bounca.ini dest=/etc/uwsgi/apps-enabled/bounca.ini state=link
+- name: copy uwsgi config 
+  template: src=uwsgi/bounca.ini dest=/etc/uwsgi/apps-available/bounca.ini
 
 
-#- name: stop uwsgi automatic
-#  service: name=uwsgi state=stopped
+- name: create uwsgi symlink
+  file: src=/etc/uwsgi/apps-available/bounca.ini dest=/etc/uwsgi/apps-enabled/bounca.ini state=link
+
+
+- name: stop uwsgi automatic
+  service: name=uwsgi state=stopped
   
 
-#- name: migrate django database
-#  command: python3 /var/www/kkkk/src/manage.py migrate --noinput
+- name: migrate django database
+  django_manage: command="migrate --noinput" app_path=/srv/www/bounca/bounca virtualenv=/srv/www/bounca/env
 
-
-#- name: start uwsgi automatic
-#  service: name=uwsgi state=restarted enabled=yes
+- name: start uwsgi automatic
+  service: name=uwsgi state=restarted enabled=yes
   
-#- name: collect the static files
-#  command: python3 /var/www/kkkk/src/manage.py collectstatic --noinput
+- name: collect the static files
+  django_manage: command="collectstatic --noinput" app_path=/srv/www/bounca/bounca virtualenv=/srv/www/bounca/env
  
 
   
