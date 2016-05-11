@@ -70,13 +70,13 @@
   
 
 - name: migrate django database
-  django_manage: command="migrate --noinput" app_path=/srv/www/bounca/bounca virtualenv=/srv/www/bounca/env
+  django_manage: command="migrate --noinput" app_path=/srv/www/bounca virtualenv=/srv/www/bounca/env
 
 - name: start uwsgi automatic
   service: name=uwsgi state=restarted enabled=yes
   
 - name: collect the static files
-  django_manage: command="collectstatic --noinput" app_path=/srv/www/bounca/bounca virtualenv=/srv/www/bounca/env
+  django_manage: command="collectstatic --noinput" app_path=/srv/www/bounca virtualenv=/srv/www/bounca/env
  
 
   
