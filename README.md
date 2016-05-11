@@ -1,4 +1,4 @@
-# Ansible Role: git server via https by nginx
+# Ansible Role: BounCA key management server
 
 [![Build Status](https://travis-ci.org/repleo/ansible-role-bounca.svg?branch=master)](https://travis-ci.org/repleo/ansible-role-bounca)
 
@@ -6,6 +6,7 @@ Ansible role for installing BounCA key mangement tool.
 
 ## Requirements
 
+BounCA is intended to install on a single host without other applications. In very secure environments, even consider to install BounCA bare metal.
 
 ## Role Variables
 
@@ -15,7 +16,7 @@ Available variables are listed below, along with default values:
 
 ## Dependencies
 
- - repleo.nginx - Installs nginx server on virtual host named git.
+ - repleo.nginx - Installs nginx server
 
 ## Example Playbook
 
