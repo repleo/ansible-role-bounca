@@ -8,7 +8,6 @@
   - python3.4
   - python3.4-dev
   - python3-setuptools
-  - python3-virtualenv
   - uwsgi
   - uwsgi-plugin-python3
   - ntp
@@ -17,6 +16,8 @@
 - name: Install pip
   easy_install: name=pip executable=easy_install-3.4
 
+- name: Install virtualenv
+  easy_install: name=virtualenv executable=easy_install-3.4
 
 - name: Set the correct timezone
   file: src=/usr/share/zoneinfo/Europe/Amsterdam dest=/etc/localtime state=link force=yes
