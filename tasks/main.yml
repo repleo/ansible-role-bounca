@@ -37,7 +37,7 @@
 
 
 - name: checkout git repo BounCA
-  git: repo=https://github.com/repleo/bounca.git dest=/srv/www/bounca
+  git: repo=https://github.com/repleo/bounca.git dest=/srv/www/bounca force=yes
 
 - name: Install bounca requirements
   pip: 
