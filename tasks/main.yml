@@ -8,6 +8,7 @@
   - python3.4
   - python3.4-dev
   - python3-setuptools
+  - python3-virtualenv
   - uwsgi
   - uwsgi-plugin-python3
   - ntp
@@ -37,11 +38,11 @@
 - name: checkout git repo BounCA
   git: repo=https://github.com/repleo/bounca.git dest=/srv/www/bounca
 
-#- name: Install bounca requirements
-#  pip: 
-#    requirements: /srv/www/bounca/requirements.txt
-#    virtualenv: /srv/www/bounca/env
-#    virtualenv_python: python3.4
+- name: Install bounca requirements
+  pip: 
+    requirements: /srv/www/bounca/requirements.txt
+    virtualenv: /srv/www/bounca/env
+    virtualenv_python: python3.4
 
 #- name: Username set of app directories
 #  file: path=/srv/www/bounca owner=www-data group=www-data mode=755 recurse=yes
@@ -67,8 +68,8 @@
 #  service: name=uwsgi state=stopped
   
 
-- name: migrate django database
-  command: python3 /var/www/kkkk/src/manage.py migrate --noinput
+#- name: migrate django database
+#  command: python3 /var/www/kkkk/src/manage.py migrate --noinput
 
 
 #- name: start uwsgi automatic
