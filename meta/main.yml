@@ -27,10 +27,29 @@ galaxy_info:
     - openssl
     - key
     - certificates
-dependencies: []
-
-#  - { role: repleo.nginx,
-#          nginx_sites: 
-#            "{{ git_site }}"    
-#     }
-
+dependencies:
+     - { role: repleo.nginx,
+               create_nginx_conf: false,
+               nginx_sites: [{
+                  file_name: bounca,
+                  listen: 80,
+                  server_name: localhost,
+                  locations: [{
+                      name: /static,
+                      lines: [
+                        "root /srv/www/bounca/media",
+                        "include mime.types"
+                      ]
+                    },
+                   {
+                      name: /,
+                      lines: [
+                        "include uwsgi_params",
+                        "uwsgi_read_timeout 9600",
+                        "uwsgi_send_timeout 9600",
+                        "uwsgi_pass"
+                      ]
+                    }]
+                }
+               ]
+       }    
