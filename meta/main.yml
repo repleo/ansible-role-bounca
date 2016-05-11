@@ -4,17 +4,8 @@ galaxy_info:
   description: Ansible role for installing BounCA key management tool 
   company: Repleo, Amstelveen, Holland
   license: GPLv3
-  min_ansible_version: 1.4
+  min_ansible_version: 2.0
   platforms:
-    - name: EL
-      versions:
-        - 5
-        - 6
-    - name: Fedora
-      versions:
-        - 16
-        - 17
-        - 18
     - name: Ubuntu
       versions:
         - all
@@ -47,7 +38,7 @@ dependencies:
                         "include uwsgi_params",
                         "uwsgi_read_timeout 9600",
                         "uwsgi_send_timeout 9600",
-                        "uwsgi_pass unix://run/uwsgi/app/bobe/socket"
+                        "uwsgi_pass unix://run/uwsgi/app/bounca/socket"
                       ]
                     }]
                 }

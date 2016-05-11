@@ -14,13 +14,11 @@
   
 - name: Install pip
   easy_install: name=pip executable=easy_install-3.4
-  
+
+
 - name: Set the correct timezone
   file: src=/usr/share/zoneinfo/Europe/Amsterdam dest=/etc/localtime state=link force=yes
 
-- name: Set the correct timezone. MAKEVAR
-  file: src=/usr/share/zoneinfo/Europe/Amsterdam dest=/etc/localtime state=link force=yes
-    
 - name: Ensure NTP is running and enabled at system start.
   service: name=ntp state=started enabled=yes
 
@@ -35,53 +33,41 @@
             
 
 
+- name: checkout git repo BounCA
+  git: repo=https://github.com/repleo/bounca.git dest=/srv/www/bounca
+
+#- name: Install bounca requirements
+#  pip: 
+#    requirements: /srv/www/bounca/requirements.txt
+#    virtualenv: /srv/www/bounca/env
+#    virtualenv_python: python3.4
+
+#- name: Username set of app directories
+#  file: path=/srv/www/bounca owner=www-data group=www-data mode=755 recurse=yes
 
 
-#- name: create directory /etc/product 
-#  file: path=/etc/{{appname}} state=directory owner=www-data group=www-data
+#- name: create directory /etc/bounca
+#  file: path=/etc/bounca state=directory owner=www-data group=www-data
 
-#- name: copy {{appname}} config 
-#  template: src=app/{{ item }} dest=/etc/{{appname}}/{{ item }} owner=www-data group=www-data mode=600
+#- name: copy bounca config 
+#  template: src=app/{{ item }} dest=/etc/bounca/{{ item }} owner=www-data group=www-data mode=600
 #  with_items:
 #    - main.ini
 
-#- name: checkout {{appname}}
-#  local_action: command {{ inventory_dir }}/scripts/checkout-local-package.sh {{appname}}
-
-
-#- name: create directory /var/www 
-#  file: path=/var/www state=directory
-
-#- name: remove /var/www/product
-#  file: path=/var/www/{{appname}} state=absent
-
-  
-  
-#- name: Extract {{appname}} to remote host 
-#  unarchive: src=/tmp/{{appname}}.tar.gz dest=/var/www/
-
-#- name: remove /var/www/product/etc
-#  file: path=/var/www/{{appname}}/etc state=absent
-  
-#- name: Username set of app directories
-#  file: path=/var/www/{{appname}} owner=www-data group=www-data mode=755 recurse=yes
-
-
 #- name: copy uwsgi config 
-#  template: src=uwsgi/domain.com.ini dest=/etc/uwsgi/apps-available/{{appname}}.ini
+#  template: src=uwsgi/bounca.ini dest=/etc/uwsgi/apps-available/bounca.ini
 
 
 #- name: create uwsgi symlink
-#  file: src=/etc/uwsgi/apps-available/{{appname}}.ini dest=/etc/uwsgi/apps-enabled/{{appname}}.ini state=link
-
-
+#  file: src=/etc/uwsgi/apps-available/bounca.ini dest=/etc/uwsgi/apps-enabled/bounca.ini state=link
 
 
 #- name: stop uwsgi automatic
 #  service: name=uwsgi state=stopped
   
-#- name: migrate django database
-#  command: python3 /var/www/kkkk/src/manage.py migrate --noinput
+
+- name: migrate django database
+  command: python3 /var/www/kkkk/src/manage.py migrate --noinput
 
 
 #- name: start uwsgi automatic
