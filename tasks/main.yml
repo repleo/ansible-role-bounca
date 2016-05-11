@@ -1,2 +1,130 @@
 ---
 # tasks file for ansible-role-bounca/
+
+- name: Install base packages
+  action: apt pkg={{item}} state=present
+  with_items:
+  - gettext
+  - python3.4
+  - python3.4-dev
+  - python3-setuptools
+  - uwsgi
+  - uwsgi-plugin-python3
+  - ntp
+  
+- name: Install pip
+  easy_install: name=pip executable=easy_install-3.4
+  
+- name: Set the correct timezone
+  file: src=/usr/share/zoneinfo/Europe/Amsterdam dest=/etc/localtime state=link force=yes
+
+- name: Set the correct timezone. MAKEVAR
+  file: src=/usr/share/zoneinfo/Europe/Amsterdam dest=/etc/localtime state=link force=yes
+    
+- name: Ensure NTP is running and enabled at system start.
+  service: name=ntp state=started enabled=yes
+
+- name: create directory /opt/bounca/cron/scripts
+  file: path=/opt/bounca/cron/scripts state=directory 
+  
+- name: Copy ntp monitor script
+  copy: src=scripts/ntpd_monitor.sh dest=/opt/bounca/cron/scripts/ntpd_monitor.sh mode=755
+
+- name: add cronjobs for ntp_monitor
+  cron: name="ntp monitor" user=root minute="*/1" job="/opt/bounca/cron/scripts/ntpd_monitor.sh" 
+            
+
+
+
+
+#- name: create directory /etc/product 
+#  file: path=/etc/{{appname}} state=directory owner=www-data group=www-data
+
+#- name: copy {{appname}} config 
+#  template: src=app/{{ item }} dest=/etc/{{appname}}/{{ item }} owner=www-data group=www-data mode=600
+#  with_items:
+#    - main.ini
+
+#- name: checkout {{appname}}
+#  local_action: command {{ inventory_dir }}/scripts/checkout-local-package.sh {{appname}}
+
+
+#- name: create directory /var/www 
+#  file: path=/var/www state=directory
+
+#- name: remove /var/www/product
+#  file: path=/var/www/{{appname}} state=absent
+
+  
+  
+#- name: Extract {{appname}} to remote host 
+#  unarchive: src=/tmp/{{appname}}.tar.gz dest=/var/www/
+
+#- name: remove /var/www/product/etc
+#  file: path=/var/www/{{appname}}/etc state=absent
+  
+#- name: Username set of app directories
+#  file: path=/var/www/{{appname}} owner=www-data group=www-data mode=755 recurse=yes
+
+
+#- name: copy uwsgi config 
+#  template: src=uwsgi/domain.com.ini dest=/etc/uwsgi/apps-available/{{appname}}.ini
+
+
+#- name: create uwsgi symlink
+#  file: src=/etc/uwsgi/apps-available/{{appname}}.ini dest=/etc/uwsgi/apps-enabled/{{appname}}.ini state=link
+
+
+
+#- name: Create {{appname}} database if not exist
+#  sudo: yes
+#  sudo_user: postgres
+#  postgresql_db: name={{appname}}
+
+#- name: Create database user
+#  sudo: yes
+#  sudo_user: postgres
+#  postgresql_user: db={{appname}} name={{appname}} password={{db_password}} 
+  
+#- name: Drop the database
+#  sudo: yes
+#  sudo_user: postgres
+#  postgresql_privs: >
+#    db={{appname}}
+#    privs=ALL
+#    type=database
+#    role={{appname}}
+#    state=absent
+
+#- name: Set database user privileges
+#  sudo: yes
+#  sudo_user: postgres
+#  postgresql_privs: >
+#    db={{appname}}
+#    privs=ALL
+#    type=database
+#    role={{appname}}
+#    state=present
+
+#- name: stop uwsgi automatic
+#  service: name=uwsgi state=stopped
+  
+#- name: migrate django database
+#  command: python3 /var/www/kkkk/src/manage.py migrate --noinput
+
+
+#- name: start uwsgi automatic
+#  service: name=uwsgi state=restarted enabled=yes
+  
+#- name: collect the static files
+#  command: python3 /var/www/kkkk/src/manage.py collectstatic --noinput
+ 
+
+  
+#TODO autogenerate admin account with password 
+#- name: create django super user admin
+#  command: python3 /var/www/{{appname}}/src/manage.py createsuperuser --noinput --username=admin --email=admin@example.com
+#  ignore_errors: True
+#Alternative at the shell: python3 manage.py createsuperuser --username=admin --email=admin@example.com
+#Alternative at the shell: python3 manage.py changepassword admin
+
