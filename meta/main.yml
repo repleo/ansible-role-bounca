@@ -47,7 +47,7 @@ dependencies:
                         "include uwsgi_params",
                         "uwsgi_read_timeout 9600",
                         "uwsgi_send_timeout 9600",
-                        "uwsgi_pass"
+                        "uwsgi_pass unix://run/uwsgi/app/bobe/socket"
                       ]
                     }]
                 }
