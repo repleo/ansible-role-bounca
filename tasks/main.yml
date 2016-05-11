@@ -20,7 +20,7 @@
   easy_install: name=virtualenv executable=easy_install-3.4
 
 - name: Set the correct timezone
-  file: src=/usr/share/zoneinfo/Europe/Amsterdam dest=/etc/localtime state=link force=yes
+  file: src={{ bounca_timezone }} dest=/etc/localtime state=link force=yes
 
 - name: Ensure NTP is running and enabled at system start.
   service: name=ntp state=started enabled=yes
@@ -78,12 +78,3 @@
 - name: collect the static files
   django_manage: command="collectstatic --noinput" app_path=/srv/www/bounca virtualenv=/srv/www/bounca/env
  
-
-  
-#TODO autogenerate admin account with password 
-#- name: create django super user admin
-#  command: python3 /var/www/{{appname}}/src/manage.py createsuperuser --noinput --username=admin --email=admin@example.com
-#  ignore_errors: True
-#Alternative at the shell: python3 manage.py createsuperuser --username=admin --email=admin@example.com
-#Alternative at the shell: python3 manage.py changepassword admin
-

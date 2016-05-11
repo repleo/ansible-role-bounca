@@ -12,7 +12,17 @@ BounCA is intended to install on a single host without other applications. In ve
 
 Available variables are listed below, along with default values:
 
-    virtual_host: bounca
+    bounca_timezone: /usr/share/zoneinfo/Europe/Amsterdam
+
+    bounca_db_user: bounca
+    bounca_db_password: pleasechangemeimsecret
+    bounca_db_host: localhost
+    bounca_db_name: bouncadb
+
+    bounca_secret_key: pleasechangemeimsecret
+    bounca_email_host: localhost
+    bounca_admin_mail: bounca-admin@bounca.org
+    bounca_from_mail: no-reply@bounca.org
 
 ## Dependencies
 
@@ -21,8 +31,19 @@ Available variables are listed below, along with default values:
 ## Example Playbook
 
     - hosts: servers
-      roles:
-        - { role: ansible-bounca-role }
+      rolse:
+	     - { role: ansible-role-bounca,
+	         bounca_timezone: /usr/share/zoneinfo/Europe/Amsterdam
+	         bounca_db_user: bounca
+	         bounca_db_password: pleasechangemeimsecret
+	         bounca_db_host: localhost
+	         bounca_db_name: bouncadb
+	
+	         bounca_secret_key: pleasechangemeimsecret
+	         bounca_email_host: localhost
+	         bounca_admin_mail: bounca-admin@bounca.org
+	         bounca_from_mail: no-reply@bounca.org
+	     }
 
 ## License
 

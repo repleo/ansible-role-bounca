@@ -46,10 +46,10 @@ dependencies:
        }
      - { role: repleo.postgresql,         
             databases: [
-              { name: bouncadb,
+              { name: "{{ bounca_db_name }}",
                 users: [
-                  { user: bounca,
-                    password: bounca,
+                  { user: "{{ bounca_db_user }}",
+                    password: "{{ bounca_db_password }}",
                     privileges: ALL,
                     type: database }
                 ]
