@@ -52,4 +52,16 @@ dependencies:
                     }]
                 }
                ]
-       }    
+       }
+     - { role: repleo.postgresql,         
+            databases: [
+              { name: bouncadb,
+                users: [
+                  { user: bounca,
+                    password: bounca,
+                    privileges: ALL,
+                    type: database }
+                ]
+              }
+            ]
+       }

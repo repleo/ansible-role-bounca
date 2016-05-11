@@ -76,35 +76,6 @@
 
 
 
-#- name: Create {{appname}} database if not exist
-#  sudo: yes
-#  sudo_user: postgres
-#  postgresql_db: name={{appname}}
-
-#- name: Create database user
-#  sudo: yes
-#  sudo_user: postgres
-#  postgresql_user: db={{appname}} name={{appname}} password={{db_password}} 
-  
-#- name: Drop the database
-#  sudo: yes
-#  sudo_user: postgres
-#  postgresql_privs: >
-#    db={{appname}}
-#    privs=ALL
-#    type=database
-#    role={{appname}}
-#    state=absent
-
-#- name: Set database user privileges
-#  sudo: yes
-#  sudo_user: postgres
-#  postgresql_privs: >
-#    db={{appname}}
-#    privs=ALL
-#    type=database
-#    role={{appname}}
-#    state=present
 
 #- name: stop uwsgi automatic
 #  service: name=uwsgi state=stopped
