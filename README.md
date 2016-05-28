@@ -31,7 +31,7 @@ Available variables are listed below, along with default values:
 ## Example Playbook
 
     - hosts: servers
-      rolse:
+      roles:
 	     - { role: ansible-role-bounca,
 	         bounca_timezone: /usr/share/zoneinfo/Europe/Amsterdam,
 	         bounca_db_user: bounca,
