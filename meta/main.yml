@@ -19,7 +19,6 @@ galaxy_info:
     - key
     - certificates
 dependencies:
-     - { role: repleo.sudo }
      - { role: repleo.nginx,
                create_nginx_conf: false,
                nginx_sites: [{

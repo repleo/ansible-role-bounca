@@ -1,6 +1,7 @@
 # Ansible Role: BounCA key management server
 
 [![Build Status](https://travis-ci.org/repleo/ansible-role-bounca.svg?branch=master)](https://travis-ci.org/repleo/ansible-role-bounca)
+[![Ansible Galaxy](http://img.shields.io/badge/galaxy-repleo.bounca-660198.svg?style=flat)](https://galaxy.ansible.com/repleo/bounca)
 
 Ansible role for installing BounCA key mangement tool.
 
@@ -30,20 +31,32 @@ Available variables are listed below, along with default values:
 
 ## Example Playbook
 
-    - hosts: servers
-      roles:
-	     - { role: ansible-role-bounca,
+	- hosts: all
+	  remote_user: root
+	  roles:
+	    - { role: repleo.bounca,
 	         bounca_timezone: /usr/share/zoneinfo/Europe/Amsterdam,
 	         bounca_db_user: bounca,
-	         bounca_db_password: pleasechangemeimsecret,
+	         bounca_db_password: <DB PASSWORD>,
 	         bounca_db_host: localhost,
 	         bounca_db_name: bouncadb,
 	
-	         bounca_secret_key: pleasechangemeimsecret,
+	         bounca_secret_key: <DJANGO SECRET PLEASE GENERATE ONE>,
 	         bounca_email_host: localhost,
 	         bounca_admin_mail: bounca-admin@bounca.org,
 	         bounca_from_mail: no-reply@bounca.org
-	     }
+	    }
+
+You can execute the playbook using the following commands:
+
+	# ansible-galaxy install repleo.bounca
+	# ansible-playbook test.yml -i <HOST OR IP>,
+
+Eventually, you may install the role locally:
+
+	# mkdir -p ./roles
+	# ansible-galaxy install repleo.bounca -p ./roles
+	# ansible-playbook test.yml -i <HOST OR IP>,
 
 ## License
 
