@@ -28,9 +28,8 @@ script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
 
-  # Run the installer
-  - export ANSIBLE_HOST_KEY_CHECKING=False
-  - ansible-playbook tests/test.yml -i tests/inventory 
+  # Run the role
+  - ansible-playbook tests/test.yml -i tests/inventory --connection=local -b -vvv
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
