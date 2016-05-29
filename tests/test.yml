@@ -2,8 +2,6 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - repleo.nginx
-    - repleo.postgresql
     - { role: ansible-role-bounca,
          bounca_timezone: /usr/share/zoneinfo/Europe/Amsterdam,
          bounca_db_user: bounca,
