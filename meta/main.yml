@@ -19,6 +19,7 @@ galaxy_info:
     - key
     - certificates
 dependencies:
+     - { role: kbrebanov.sudo }
      - { role: repleo.nginx,
                create_nginx_conf: false,
                nginx_sites: [{

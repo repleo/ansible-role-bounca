@@ -1,4 +1,6 @@
  
+- src: kbrebanov.sudo
+
 - src: repleo.nginx
 
 - src: repleo.postgresql
