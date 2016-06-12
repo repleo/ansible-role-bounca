@@ -13,4 +13,4 @@ bounca_email_host: localhost
 bounca_admin_mail: bounca-admin@bounca.org
 bounca_from_mail: no-reply@bounca.org
 
-bounca_version: v0.1.0
+bounca_version: v0.1.1
