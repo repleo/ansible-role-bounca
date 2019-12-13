@@ -33,8 +33,6 @@
 
 - name: add cronjobs for ntp_monitor
   cron: name="ntp monitor" user=root minute="*/1" job="/opt/bounca/cron/scripts/ntpd_monitor.sh" 
-            
-
 
 - name: checkout git repo BounCA
   git: repo=https://github.com/repleo/bounca.git dest=/srv/www/bounca force=yes version={{ bounca_version }}
@@ -48,7 +46,6 @@
 - name: Username set of app directories
   file: path=/srv/www/bounca owner=www-data group=www-data mode=755 recurse=yes
 
-
 - name: create directory /etc/bounca
   file: path=/etc/bounca state=directory owner=www-data group=www-data
 
@@ -60,14 +57,11 @@
 - name: copy uwsgi config 
   template: src=uwsgi/bounca.ini dest=/etc/uwsgi/apps-available/bounca.ini
 
-
 - name: create uwsgi symlink
   file: src=/etc/uwsgi/apps-available/bounca.ini dest=/etc/uwsgi/apps-enabled/bounca.ini state=link
 
-
 - name: stop uwsgi automatic
   service: name=uwsgi state=stopped
-  
 
 - name: migrate django database
   django_manage: command="migrate --noinput" app_path=/srv/www/bounca virtualenv=/srv/www/bounca/env
