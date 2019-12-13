@@ -5,19 +5,16 @@
   action: apt pkg={{item}} state=present
   with_items:
   - gettext
-  - python3.4
-  - python3.4-dev
+  - python3
+  - python3-dev
   - python3-setuptools
   - uwsgi
   - uwsgi-plugin-python3
   - ntp
   - git
-  
-- name: Install pip
-  easy_install: name=pip executable=easy_install-3.4
-
-- name: Install virtualenv
-  easy_install: name=virtualenv executable=easy_install-3.4
+  - virtualenv
+  - python3-virtualenv
+  - python3-pip
 
 - name: Set the correct timezone
   file: src={{ bounca_timezone }} dest=/etc/localtime state=link force=yes
@@ -41,7 +38,7 @@
   pip: 
     requirements: /srv/www/bounca/requirements.txt
     virtualenv: /srv/www/bounca/env
-    virtualenv_python: python3.4
+    virtualenv_python: python3
 
 - name: Username set of app directories
   file: path=/srv/www/bounca owner=www-data group=www-data mode=755 recurse=yes
